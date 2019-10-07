@@ -6,6 +6,7 @@ const person = ({ name, age, click, changed, children }) => {
   // if (rnd > 0.7) {
   //   throw new Error('Something wrong');
   // }
+  console.log('[Person.js] rendering...');
   return (
     <div className={classes.Person}>
       <p onClick={click}>
