@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import classes from './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
-import withClass from '../components/hoc/withClass';
-import Aux from '../components/hoc/Aux';
+import withClass from '../hoc/withClass';
+import Aux from '../hoc/Aux';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
   constructor(props) {
@@ -89,14 +90,17 @@ class App extends Component {
 
     return (
       <Aux>
-        <Cockpit
-          title={this.props.appTitle}
-          clicked={this.togglePersonsHandler}
-          personLength={this.state.persons.length}
-          persons={this.state.persons}
-          login={this.LoginHandler}
-        />
-        {persons}
+        <AuthContext.Provider
+          value={{ authenticated: this.state.authenticated, login: this.LoginHandler }}
+        >
+          <Cockpit
+            title={this.props.appTitle}
+            clicked={this.togglePersonsHandler}
+            personLength={this.state.persons.length}
+            persons={this.state.persons}
+          />
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
